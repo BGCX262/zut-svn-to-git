@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="jsp/common/template.xhtml">
+<ui:param name="param" value="Login" />
+<ui:param name="css" value="includes/css/layout.css" />
+	
+	<ui:define name="title">
+		<h:outputText value="Authentication" styleClass="main-title"/>
+	</ui:define>
+	<ui:define name="body">
+		<p:outputPanel id="outp0" layout="block" style="width: 100%; overflow: hidden;">
+		
+			<p:outputPanel id="outp1" layout="block" style="background-color: #2672ec;width: 50%; overflow: hidden; float: left; height: 250px"  >
+				<h:outputText id="oupt1Ttile" value="Your account, our priority" style="color: #fff;display: block;text-align: center;font-size: 31px;font-weight: 100;line-height: 29px"/>
+			</p:outputPanel>
+			
+			<p:outputPanel id="outp2" layout="block" style="width: 50%; overflow: hidden; float: right;"  >
+				<h:outputText id="outp2title" value="Sign in" style="font-size: 250%;line-height: 50px;color: #666;margin: 10%;"/>
+		 	    <h:form style="background:orange; margin-left: 10%; margin-top: 5%; margin-right: 10%">
+			        <h:panelGrid id="fields" columns="2">
+	
+			            <x:inputText id="j_username" forceId="true" value="#{loginBean.email}" size="40" maxlength="80" styleClass="def-input" />
+			            <p:watermark for="j_username" value="someone@example.com" />  
+	
+			            <x:inputSecret id="j_password" forceId="true" value="#{loginBean.password}" size="40" maxlength="80" redisplay="true" styleClass="def-input"/>
+			            <p:watermark for="j_password" value="Password" />  
+			        </h:panelGrid>
+			        <h:panelGrid columns="2">
+			            <h:selectBooleanCheckbox id="_spring_security_remember_me" value="#{loginBean.rememberMe}" rendered="true" />
+			            <h:outputLabel value="Remember me" for="_spring_security_remember_me" rendered="true" />		              		        
+			        </h:panelGrid>
+			        
+			        <h:commandLink id="passwordForgot" action="spring:redirect:/jsp/user/resetPassword?{token}" value="Password recovery?" styleClass="def-but">
+			        	<f:param name="token" value="ssdsdsdhuidylwylwew"></f:param>
+			        </h:commandLink>
+			        
+			        <h:commandLink id="passwordForgot1" action="/jsp/user/resetPassword?faces-redirect=true" value="Password recovery?" styleClass="def-but">
+			        	<f:param name="token" value="ssdsdsdhuidylwylwew"></f:param>
+			        </h:commandLink>
+			        <h:panelGrid id="actions" columns="2">
+			        	<h:commandButton id="loginButton" action="#{loginBean.doLogin}" value="Login" styleClass="def-but"/>	
+						<h:commandButton id="registerButton" action="#{loginBean.goToRegistrationPage}" value="Register" styleClass="def-but"/>
+					</h:panelGrid>	                
+		        </h:form>
+			</p:outputPanel>
+		</p:outputPanel>
+    </ui:define>
+</ui:composition>
+</html>

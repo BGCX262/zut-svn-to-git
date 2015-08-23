@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Tutorials :: View" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid id="pgbo" columns="2" style="border:none;">
+				<p:panel id="pan1" style="border:none;background: none;">
+					<h:panelGrid id="pg00045" columns="2">
+						<p:graphicImage id="gimag7" styleClass="ui-icon ui-icon-note"/>
+						<h:outputText id="title" value="#{tutorialBean.tutorial.title}" styleClass="tutorial-title"/>
+					</h:panelGrid>
+					<h:panelGrid id="p001" columns="2">
+						<p:panel id="pg0021" style="border:none;">
+							<h:panelGrid id="pg0001" columns="2">
+								<h:graphicImage value="#{imageBean.load64(tutorialBean.tutorial.account.id)}" />
+								<h:panelGrid id="pgp1001" columns="1">
+									<p:commandLink id="authorUsername" value="#{tutorialBean.tutorial.account.user.username}" action="#{accountBean.view(tutorialBean.tutorial.account.id)}" styleClass="username-link"/>
+									<h:outputText id="reputation" value="#{tutorialBean.tutorial.account.accountInfos.reputation}"/>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel id="pg0041" style="border:none;" rendered="#{tutorialBean.tutorial.secondAccount != null}">
+							<h:panelGrid id="pg0042" columns="2">
+								<h:graphicImage id="img42" value="#{imageBean.load64(tutorialBean.tutorial.secondAccount.id)}" />
+								<h:panelGrid id="pgpg42">
+									<p:commandLink id="authorUsername2" value="#{tutorialBean.tutorial.secondAccount.user.username}" action="#{accountBean.view(tutorialBean.tutorial.secondAccount.id)}" styleClass="username-link"/>
+									<h:outputText id="reputation2" value="#{tutorialBean.tutorial.secondAccount.accountInfos.reputation}"/>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+					</h:panelGrid>
+					<h:panelGrid id="pg0003" columns="2" style="border:none;">
+						<p:panel id="pan02" style="border:none;background: none;">
+							<h:outputFormat id="createdAt" value="#{message['thread.createdAt']}" >
+								<f:param value="#{tutorialBean.tutorial.createdAt}" />
+							</h:outputFormat>
+	
+							<x:htmlTag value="br"/>
+							<h:outputFormat id="updated" value="#{message['thread.modifiedAt']}" >
+								<f:param value="#{tutorialBean.tutorial.modifiedAt}" />
+							</h:outputFormat>
+							
+						    <h:outputText id="createdAtDate" value="#{tutorialBean.tutorial.createdAt}" />							
+						</p:panel>
+						<p:dataGrid id="tagsDataGrid"  value="#{tagBean.byTutorial(tutorialBean.tutorial.id)}" var="tag" 
+							rendered="#{tagBean.byTutorial(tutorialBean.tutorial.id) != null}" emptyMessage="No attached tags" styleClass="tagsGrid" columns="5">
+							 <h:commandLink id="tagNameLink" value="#{tag.name}" action="#{tagBean.view(tag.id)}" styleClass="tutorial-tag-title-link"/>
+						</p:dataGrid>
+					</h:panelGrid>
+					<h:panelGrid id="pgrrr2" columns="3" rendered="#{tutorialBean.canEdit}" style="border:none;">
+	           			<p:selectBooleanButton id="actived" value="#{tutorialBean.tutorial.actived}" onLabel="Activated" offLabel="Desactivated" rendered="#{tutorialBean.canEdit}"/>
+						<p:commandButton id="edit" action="#{tutorialBean.goToUpdate(tutorialBean.tutorial.id)}" value="Edit" rendered="#{tutorialBean.canEdit}"/>
+						<p:commandButton id="addTag" value="+Tag" onclick="tagDlg.show();" rendered="#{tutorialBean.canEdit}"/>
+					</h:panelGrid>
+					
+				</p:panel>
+			</h:panelGrid>
+			<p:tabView id="tabView" dynamic="true" cache="true" orientation="top" style="border: none;">
+		        <p:tab id="tba1" title="Summary">
+	            	<p:panel id="details" style="border: none;">
+		                <h:outputText id="question" value="#{tutorialBean.tutorial.question}" escape="false"/>
+		                <h:outputText id="description" value="#{tutorialBean.tutorial.description}" escape="false"/>
+		                <p:separator id="descSepCont"/>
+		                <h:outputText id="content" value="#{tutorialBean.tutorial.content}" escape="false"/>
+	            	</p:panel>	            
+		        </p:tab>
+		
+		        <p:tab id="tab2" title="Documents">
+		            <p:media value="/includes/doc/doc.pdf" width="100%" height="500px">  
+					    Your browser can't display pdf, <h:outputLink value="/includes/doc/doc.pdf">click</h:outputLink> to download pdf instead.  
+					</p:media> 
+		        </p:tab>
+		
+		        <p:tab id="tab3" title="Videos/Podcast">
+		            <h:panelGrid columns="2" cellpadding="10">
+		                <p:graphicImage id="tab3Img" value="/includes/images/arrow-ff.gif" />
+		                <h:outputText value="No videoa"/>
+		            </h:panelGrid>
+		        </p:tab>
+    		</p:tabView>
+		</h:form>
+		
+		<p:dialog id="tagDialog" header="Add tag" widgetVar="tagDlg" minHeight="150">
+			<h:form id="addTag">
+				<h:panelGrid columns="2" style="margin-bottom:10px">  
+	            	<h:outputLabel for="tagName" value="Name:" />
+	            	<p:autoComplete id="tagName" completeMethod="#{tutorialBean.onCompleteTag}" 
+	                        multiple="true" forceSelection="true">
+	                 	<p:ajax id="onSelectListener" event="itemSelect" listener="#{tutorialBean.onSelectTag}" ></p:ajax>       
+	                 </p:autoComplete>
+	        	</h:panelGrid>
+            	<p:commandButton id="cancel" value="Cancel" onclick="tagDlg.hide();"/>
+            	<p:commandButton id="createButton" value="Submit" action="#{tutorialBean.addTags}"/>
+			</h:form>
+   		</p:dialog>
+   	</ui:define>
+</ui:composition>
+</html>

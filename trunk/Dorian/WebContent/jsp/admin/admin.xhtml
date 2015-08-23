@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Admin :: View" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+	<ui:define name="title">
+		<h:outputText value="Administration panel" styleClass="main-title" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h:form>
+			<p:tabView id="tabView" dynamic="true" cache="true" style="background:none;border-right:none;border-left:none;border-top:none;">
+				<p:tab id="usersTab" title="Users"> 
+					<p:dataTable id="usersReputationGrid" var="account" value="#{accountListBean.all}"
+							paginatorAlwaysVisible="true" rows="10" paginatorPosition="bottom" paginator="true" 
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+						<p:column id="idCol" headerText="Id" sortBy="#{account.id}">
+							<h:outputText id="idTex" value="#{account.id}"/>
+						</p:column>
+						<p:column id="dateCol" headerText="Created at" sortBy="#{account.createdAt}">
+							<h:outputText id="createdDate" value="#{account.createdAt}"/>
+						</p:column>
+						<p:column id="avatarCol" headerText="Infos">
+							<h:panelGrid columns="2" style="border:none;">
+								<p:graphicImage id="avatar" value="#{imageBean.load32(account.id)}" alt="#{account.username}"/>
+								<h:panelGrid id="pgpg01" columns="1" style="border:0px;background:none;">
+									<p:commandLink id="createdBy" value="#{account.user.username}" action="#{accountBean.view(account.id)}"/>
+									<h:outputText id="address" value="#{account.user.primaryEmail}"/>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:column>
+						<p:column id="reputationCol" headerText="Rep">
+							<p:inplace id="ajaxInplace" editor="true">
+		                		<p:inputText value="#{account.accountInfos.reputation}" required="true" label="text" />  
+		            		</p:inplace> 
+						</p:column>
+						<p:column id="disable" headerText="Disabled">
+							<h:outputText id="dis" value="#{account.disabled}"/>
+						</p:column>
+						<p:column id="roleCol" headerText="Role">
+							<p:dataList id="pg1" value="#{roleBean.getForAccount(account.id)}" var="role" >
+								<h:outputText id="roleTitle" value="#{role.name}"/>
+							</p:dataList>
+						</p:column>
+						<p:column id="actionsCol" headerText="Actions">
+							<p:commandButton id="addRole" value="+Role" onclick="#"/>
+							<p:commandButton id="tag" value="+Tag" action="#"/>
+							<p:commandButton id="close" value="Close" action="#{accountBean.close(account.id)}" rendered="#{!account.disabled}"/>
+							<p:commandButton id="disclose" value="Open" action="#{accountBean.open(account.id)}" rendered="#{account.disabled}"/>
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+					
+				<p:tab id="mailsTab" title="Mails">
+					<p:dataTable id="mailsGrid" var="mail" value="#{mailBean.allMails}"
+						paginatorAlwaysVisible="true" rows="10" paginatorPosition="bottom" paginator="true" 
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+						<p:column id="idCol" headerText="Id" resizable="true" sortBy="#{mail.id}">
+							<h:outputText id="idTex" value="#{mail.id}"/>
+						</p:column>
+						<p:column id="dateCol" headerText="Created at" resizable="true" sortBy="#{mail.createdAt}">
+							<h:outputText id="createdDate" value="#{mail.createdAt}"/>
+						</p:column>
+						<p:column id="fromCol" headerText="From" resizable="true">
+							<h:outputText id="sender" value="#{mail.sender}"/>
+						</p:column>
+						<p:column id="typeCol" headerText="Type" filterBy="#{mail.templateType}" resizable="true">
+							<h:outputText id="type" value="#{mail.templateType}"/>
+						</p:column>
+						<p:column id="objectCol" headerText="Object" resizable="true">
+							<h:outputText id="object" value="#{mail.object}"/>
+						</p:column>
+						<p:column id="bodyCol" headerText="Body" resizable="true">
+							<h:outputText id="body" value="#{mail.body}"/>
+						</p:column>
+						
+						<p:column id="actionsCol" headerText="Actions" resizable="true">
+							<p:commandButton id="answer" value="Answer" onclick="#"/>
+							<p:commandButton id="forward" value="Forward" action="#"/>
+							<p:commandButton id="delete" value="Delete" action="#"/>
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+

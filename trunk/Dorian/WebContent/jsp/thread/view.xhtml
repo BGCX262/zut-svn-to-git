@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+	<ui:param name="param" value="Thread view" />
+	<ui:param name="css" value="../../includes/css/layout.css" />
+	
+	<ui:define name="title">
+		<h1>View Thread</h1>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<p:growl id="messages"/>  
+			<h:panelGrid id="panelGrid" columns="2" cellpadding="10">
+				<h:panelGrid id="mainPanel" columns="1">
+					<h:panelGrid id="mpg1" columns="2">
+						<p:graphicImage id="gimag1" styleClass="ui-icon ui-icon-comment"/>
+						<h:outputText id="threadTitle" value="#{threadBean.thread.title}" styleClass="tutorial-title" />
+					</h:panelGrid>
+					<h:panelGrid id="pg001" columns="2">
+						<p:graphicImage id="avatar2" value="#{imageBean.load32(threadBean.thread.createdBy.id)}" />
+						<h:commandLink id="threadOwner" value="#{threadBean.thread.createdBy.user.username}" action="#{accountBean.view(threadBean.thread.createdBy.id)}" styleClass="username-link"/>
+					</h:panelGrid>				
+					<h:outputFormat id="threadCreatedAt" value="#{message['thread.createdAt']}" >
+						<f:param value="#{threadBean.thread.createdAt}" />
+					</h:outputFormat>
+					<h:outputFormat id="times" value="#{message['thread.modifiedAt']}" >
+						<f:param value="#{threadBean.thread.modifiedAt}" />
+					</h:outputFormat>
+					<h:panelGrid id="tagsPanel" rendered="#{not empty threadBean.threadTags}">
+						<p:dataGrid id="tagsDataGrid" value="#{threadBean.threadTags}" var="tag" columns="5" styleClass="tagsGrid">
+							 <h:commandLink id="tagNameLink" value="#{tag.name}" action="#{tagBean.view(tag.id)}" styleClass="thread-tag-title-link"/>
+						</p:dataGrid>
+					</h:panelGrid>
+				</h:panelGrid>
+				<h:panelGrid id="actions" columns="3">
+					<p:commandButton id="close" value="Close" action="#{threadBean.close()}" rendered="#{!threadBean.thread.closed and threadBean.canEdit}"/>
+					<p:commandButton id="addTag" value="+tag" onclick="tagDlg.show();" rendered="#{threadBean.canEdit and !threadBean.thread.closed}"/>
+					<p:commandButton id="convertToTutorial" value="To tutorial" onclick="confirmation.show()" rendered="#{threadBean.canEdit and !threadBean.thread.closed and threadBean.thread.postValidate != null}" />
+					<p:confirmDialog id="confirmDialog" message="Etes-vous sur de vouloir convertir ce thread en tutoriel ?"  
+                		header="Initiating destroy process" severity="alert" widgetVar="confirmation">            
+        					<p:commandButton id="confirm" value="Yes" update="messages" oncomplete="confirmation.hide()"  
+                    			actionListener="#{threadBean.createTutorialFromThread}" />  
+        					<p:commandButton id="decline" value="Not" onclick="confirmation.hide()" type="button" />                     
+    				</p:confirmDialog>
+				</h:panelGrid>
+			</h:panelGrid>
+			<p:dataList id="table" value="#{threadBean.findAllPostFromThread()}" var="currentPost">
+				<p:panel id="de">
+					<h:outputText id="content" value="#{currentPost.content}" escape="false"/>
+					<br/>
+					<p:dataList id="datalist" value="#{attachmentBean.getAttachments(currentPost.id)}" var="attachment">
+						<p:panel>
+							<p:commandButton id="name" value="#{attachment.fileName}" disabled="#{!attachment.downloadable}" rendered="#{attachment.visible}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+								<p:fileDownload value="#{attachmentBean.download(attachment.id)}" />
+							</p:commandButton>
+							<p:spacer width="20"/>
+							<h:outputText id="descr" value="#{attachment.description}"/>
+						</p:panel>
+					</p:dataList><br/>
+					<h:panelGrid id="pg" columns="4">
+						
+						<p:panel id="pg0" rendered="#{!currentPost.question and !currentPost.validate and threadBean.canEdit and !threadBean.thread.closed and threadBean.thread.postValidate == null}">
+							<h:commandButton id="validate" value="validate" action="#{threadBean.validateThread(currentPost.id)}"/>
+						</p:panel>
+						<p:panel id="pg1" rendered="#{!currentPost.question and currentPost.validate and threadBean.canEdit and !threadBean.thread.closed and threadBean.thread.postValidate != null}">
+							<h:commandButton id="unvalidate" value="unvalidate" action="#{threadBean.unvalidateThread(currentPost.id)}" image="/includes/images/validate.jpg" />
+						</p:panel>
+						
+						<p:panel id="p1" style="border:none;">
+							<h:outputFormat id="createdAt" value="#{message['thread.createdAt']}">
+								<f:param value="#{currentPost.createdAt}" />
+							</h:outputFormat>
+							<br/>
+							<h:outputFormat id="modifiedAt" value="#{message['thread.modifiedAt']}">
+								<f:param value="#{currentPost.createdAt}" />
+							</h:outputFormat>
+						</p:panel>
+						<p:panel id="p2" rendered="#{postBean.canEdit(currentPost) and !threadBean.thread.closed}" style="border:none;">
+							<p:panelGrid id="pg2" columns="2">
+								<h:commandButton id="deleteCB" value="Delete" action="#{postBean.removePostById(currentPost.id)}"/>
+								<h:commandButton id="editPost" value="Edit" action="#{postBean.redirectTo(currentPost)}" />
+							</p:panelGrid>
+						</p:panel>
+						
+						<h:panelGrid id="pg3" columns="2">
+							<p:graphicImage id="avatar2" value="#{imageBean.load32(currentPost.account.id)}" />
+							<p:panel id="p5" style="border:none;">
+								<h:commandLink id="username" value="#{currentPost.account.user.username}" action="#{accountBean.view(currentPost.account.id)}" styleClass="username-link"/><br/>
+								<h:outputFormat id="reputation" value="#{currentPost.account.accountInfos.reputation}" />
+							</p:panel>
+						</h:panelGrid>
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:dataList>
+			<br/>
+			<p:commandButton id="addResponse" value="Add response" action="#{threadBean.redirectToNewResponse()}" ajax="false" rendered="#{!threadBean.thread.closed}"/>
+		</h:form>
+		
+		<p:dialog id="tagDialog" header="Add tag" widgetVar="tagDlg" modal="true" minHeight="150">
+			<h:form id="addTag">
+				<h:panelGrid columns="2" style="margin-bottom:10px">  
+	            	<h:outputLabel for="tagName" value="Name:" />
+	            	<p:autoComplete id="tagName" completeMethod="#{threadBean.onCompleteTag}" 
+	                        multiple="true" forceSelection="true">
+	                 	<p:ajax id="onSelectListener" event="itemSelect" listener="#{threadBean.onSelectTag}" ></p:ajax>
+	                 </p:autoComplete>
+	        	</h:panelGrid>
+            	<p:commandButton id="cancel" value="Cancel" onclick="tagDlg.hide();"/>
+            	<p:commandButton id="createButton" value="Submit" action="#{threadBean.addTags}"/>
+			</h:form>
+   		</p:dialog>  
+	</ui:define>
+	</ui:composition>
+</html>

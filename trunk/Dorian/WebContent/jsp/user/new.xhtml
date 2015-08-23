@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="New User registration" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="New User registration" />
+	</ui:define>
+	<ui:define name="body">
+	    <h:form>
+	    	<h:panelGrid columns="2">
+		    	<h:outputLabel value="User Name" for="username" />
+		        <x:inputText id="username" forceId="true" value="#{accountBean.username}" size="40" maxlength="80" styleClass="def-input"/>
+
+		        <h:outputLabel value="Email" for="email" />
+		        <x:inputText id="email" forceId="true" value="#{accountBean.email}" size="40" maxlength="80" styleClass="def-input"/>
+		            
+		        <h:outputLabel value="Password" for="password" />
+		        <x:inputSecret id="password" forceId="true" value="#{accountBean.password}" size="40" maxlength="80" redisplay="true" styleClass="def-input"/>
+
+		        <h:outputLabel value="Password" for="passwordVerifier" />
+		        <x:inputSecret id="passwordVerifier" forceId="true" value="#{accountBean.passwordVerifier}" size="40" maxlength="80" redisplay="true" styleClass="def-input"/>
+		        <br />
+		    </h:panelGrid>
+	        
+	        <h:commandButton type="submit" action="#{accountBean.registerUser}" value="Register" styleClass="def-but"/>
+	        <h:commandButton type="reset" value="Reset" styleClass="def-but"/>
+	        
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
+</html>        
+

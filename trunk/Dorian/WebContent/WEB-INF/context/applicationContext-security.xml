@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+
+    <!-- secured-annotations="enabled" declares available use of @Secured @nnotations use in Java source. -->
+    <beans:bean id="AccessDecisionManagerImpl" class="fr.dorian.web.security.impl.AccessDecisionManagerImpl"/>
+        <global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled"
+     access-decision-manager-ref="AccessDecisionManagerImpl"/>  
+    <!-- Spring secured-annotations: @Secured...  
+    	 Global javax jsr250-annotations: @RolesAllowed, @PostConstruct, @PreDestroy, @PermitAll, @DenyAll -->
+    <!-- HTTP protocol adapting -->
+    <http use-expressions="true"  access-denied-page="/jsp/error/accessDenied.jsf">
+        <!-- Disable web URI authorization, because Securing JSF has specific URI patterns, 
+        	 securing is so done through: 	- Page Tag library: 	<sec:authorize access="...">						(cf welcome.xhtml)
+        	 								- Page EL: 				rendered="#{sec:areAllGranted('ROLE_SUPERVISOR')}" 	(cf welcome.xhtml)        									- Services @nnotations:	@Secured(String)   									(cf IProductEditBean.java interface) -->        
+        <!-- Intercepting URI with Spring Security requires you append a '?faces-redirect=true' at the end of your navigation keys.-->
+         
+        <!-- Access values available for tag, @nnotations, attribute; permitAll, hasRole(String), isAuthenticated(), isRememberMe() -->
+        		<!-- <intercept-url pattern="/search.jsf" access="hasRole('ROLE_SUPERVISOR')"/> --> 
+        <!-- <intercept-url pattern="/secure/extreme/**.jsf" access="hasRole('ROLE_SUPERVISOR')"/> --> 
+        <!-- <intercept-url pattern="/secure/**" access="isAuthenticated()" /> -->        <intercept-url pattern="/jsp/tag/new.jsf" access="isAuthenticated()" />
+        <intercept-url pattern="/jsp/tutorial/new.jsf" access="isAuthenticated()" />
+        <intercept-url pattern="/jsp/post/askQuestion.jsf" access="isAuthenticated()" />
+        <intercept-url pattern="/jsp/post/attachPost.jsf" access="isAuthenticated()" />
+        <intercept-url pattern="/jsp/admin/**" access="hasRole('ROLE_SUPERVISOR')" />
+                <!--  Log (in/out) process definition-->
+        <form-login login-processing-url="/j_spring_security_check" login-page="/login.jsf" default-target-url="/" authentication-failure-url="/jsp/error/authenticationFailure.jsf" />
+        <logout logout-success-url="/" delete-cookies="JSESSIONID"/>
+        <remember-me /> <!--attribute: data-source-ref="dataSource" --> <!-- pour stocker les infos dans une DB plutôt que dans un cookie -->
+                <!-- <x509 /> Uncomment to enable X509 client authentication support -->        <!-- Limits the number of sessions a user can have -->
+        <session-management>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false" />
+        </session-management>
+    </http>
+
+	<beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<beans:property name="userPropertyToUse" value="primaryEmail"/>
+	</beans:bean>
+
+	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+
+    <!-- from database -->
+    <authentication-manager alias="authenticationManager">
+    	<authentication-provider user-service-ref="userDetailsService" >
+			<password-encoder ref="passwordEncoder">
+    			<salt-source ref="saltSource"/>
+    		</password-encoder>
+    	</authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

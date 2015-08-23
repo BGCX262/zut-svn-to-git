@@ -1,0 +1,9 @@
+<html>
+<body>
+	<p>New mail from: ${from}.</p>
+	<p>Object: ${object}</p>
+	<p>Body</p>
+	<p>${body}.</p>
+	<p>Cordialement</p>
+</body>
+</html>

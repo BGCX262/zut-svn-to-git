@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://myfaces.apache.org/tomahawk">
+
+<h:body>
+	<h:form>
+		<p:outputPanel id="super-main-menu" layout="block" styleClass="super-main-menu">
+			<p:outputPanel id="super-main-menu-first" layout="block" styleClass="super-main-menu-first">
+			
+				<p:outputPanel id="super-main-menu-left" layout="block" styleClass="super-main-menu-left">
+					<h:outputText id="appName" value="Dorian.com" styleClass="app-name"/>
+				</p:outputPanel>
+				<p:outputPanel id="super-main-menu-right" layout="block" styleClass="super-main-menu-right">
+					<p:graphicImage id="pub" styleClass="main-menu-pub" value="/includes/images/pub.png"/>
+				</p:outputPanel>
+			</p:outputPanel>
+			
+			<p:outputPanel id="super-main-menu-second" layout="block" styleClass="super-main-menu-second">
+				<p:menubar styleClass="mainMenu">
+					<p:menuitem value="Home" outcome="/welcome?faces-redirect=true" ajax="true" icon="ui-icon-home" />
+					<p:menuitem value="Threads" action="#{threadBean.goToThreadList()}" ajax="false" icon="ui-icon-comment" />
+					<p:menuitem value="Tutorials" action="#{tutorialBean.goToTutorialList()}" ajax="false" icon="ui-icon-note" />
+					<p:menuitem value="Tags" action="#{tagListBean.goToListView()}" ajax="false" icon="ui-icon-pin-s" />
+					<p:menuitem value="Users" action="#{accountListBean.goToListView()}" ajax="false" icon="ui-icon-person" />
+					<p:menuitem id="mi42" value="AskQuestion" action="#{threadBean.goToAskQuestion}" icon="ui-icon-arrowrefresh-1-w" ajax="false" styleClass="ask-question-button"/>
+				</p:menubar>
+			</p:outputPanel>
+		</p:outputPanel>
+		
+	</h:form>
+</h:body>
+</html>

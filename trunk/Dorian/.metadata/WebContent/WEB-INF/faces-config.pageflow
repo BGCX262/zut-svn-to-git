@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13542738348050" configfile="/Dorian/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf13586080777060" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13586080777061" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="index" id="pf13586080777062" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13586080777061" path="/index.jsp"/>
+  <links id="pf13586080777061" target="pf13586080777062" source="pf13586080777060" outcome="welcome"/>
+</pageflow:Pageflow>

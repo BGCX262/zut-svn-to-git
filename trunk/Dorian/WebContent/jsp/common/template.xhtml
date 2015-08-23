@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title> <h:outputText value="#{param}"/></title>
+        <link href="#{css}" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+		<p:growl id="messages" />
+    	<p:outputPanel id="super-main-container" layout="block" styleClass="super-main-container">
+	    	<p:outputPanel id="super-header" layout="block" styleClass="super-header">
+		    	<ui:include src="/jsp/common/topBar.xhtml"></ui:include>
+				<ui:include src="/jsp/common/mainMenu.xhtml"></ui:include>
+	    	</p:outputPanel>
+    	
+	    	<p:outputPanel id="super-container" layout="block" styleClass="super-container">
+				<p:outputPanel id="super-container-title" layout="block" styleClass="super-container-title">
+					<h1>
+		           		<ui:insert name="title"/>
+		        	</h1>
+				</p:outputPanel>
+		        <p>
+		        	<ui:insert name="body"/>	
+		        </p>
+			</p:outputPanel>
+	    	
+	        <p:outputPanel id="super-footer" layout="block" styleClass="super-footer" >
+		       	<ui:include src="/jsp/common/footer.xhtml"></ui:include>
+		    </p:outputPanel>
+    	</p:outputPanel>
+    </h:body>
+</html>

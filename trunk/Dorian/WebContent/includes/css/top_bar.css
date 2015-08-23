@@ -1,0 +1,32 @@
+.super-top-bar {
+	width: 100%;
+	overflow: hidden;
+}
+
+.super-main-top-bar {
+	margin: 0 auto;
+}
+
+.super-top-bar-left {
+	float: left;
+}
+
+.super-top-bar-right {
+	float: right;
+}
+
+.stp-search-engine {
+	
+}
+
+.user-interaction-section {
+	padding-top: 5px;
+}
+
+/* .user-interaction-section {
+	display: block;
+	z-index: 1004;
+	top: 37px;
+	left: 1120px;
+	position: absolute;
+} */

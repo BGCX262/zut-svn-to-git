@@ -1,0 +1,262 @@
+/* OVERRIDE **/
+.ui-corner-all {
+	webkit-border-radius: 0px;
+	border-radius: 0px;	
+}
+
+body {
+	background: #FFF;
+	color: #000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	background-image: url(../images/bg-01.jpg);
+	background-color: rgb(246, 245, 248);
+	background-repeat: no-repeat;
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	font-size: 38.5px;
+	text-rendering: optimizelegibility;
+	margin: 10px 0;
+}
+
+.super-main-container {
+	width: 80%;
+	min-width: 1000px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.super-container {
+	width: 100%;
+	overflow: hidden;
+}
+
+.super-container-title {
+	width: 100%;
+	color: #5a5a5a;
+	border-bottom: 1px solid #FFF;
+	padding-bottom: 0px;
+	margin: 20px 0 20px;
+}
+
+.super-container-left {
+	float: left;
+	width: 63%;
+}
+
+.super-container-right {
+	float: right;
+	min-width: 390;
+	
+}
+
+/************************************************************/
+/*						INPUTS								*/
+/************************************************************/
+.ipt {
+	border: 1px solid #ccc;
+	height: 100%;
+	min-height: 24px;
+	color: #000;
+	font-size: 100%;
+	background-color: #FFF;
+	padding-left: 1%;
+}
+
+.ipt-def {
+	
+}
+
+/************************************************************/
+/*						BUTTONS								*/
+/************************************************************/
+button {
+	border: 1px solid #ccc;
+	-webkit-border-radius: 0px;
+}
+
+.btn {
+	height: 2.1em;
+	border: 1px solid #ccc;
+	color: #000;
+	cursor: pointer;
+}
+
+.btn-def {
+	background-image: -webkit-linear-gradient(top,rgba(255,255,255,.85),rgba(247,247,247,.85));
+}
+
+.btn-send {
+	background-color: #0088cc;
+	color: #ffffff;
+}
+
+.btn-send:hover,
+.btn-send:focus,
+.btn-send.active,
+.btn-send.disabled,
+.btn-send[disabled] {
+  color: #ffffff;
+  background-color: #0044cc;
+  *background-color: #003bb3;
+}
+
+.btn-delete {
+	background-color: rgb(255, 3, 3);
+	color: rgb(235, 255, 0);
+	border: none;
+}
+
+.btn-delete:HOVER,
+.btn-delete:ACTIVE,
+.btn-delete:FOCUS {
+	color: rgb(255, 205, 3);
+}
+
+
+/********************* THREAD *****************************/
+.tagsGrid {
+	
+}
+
+.tagsGrid div.ui-datagrid-content {
+	border: none;
+	background: none;
+}
+
+.thread-tag-title-link  {
+	background: red;
+	text-decoration: none;
+	padding: 5px;
+}
+
+.thread-tag-title-link:ACTIVE,
+.thread-tag-title-link:FOCUS,
+.thread-tag-title-link:HOVER  {
+	background: rgb(228, 81, 81);
+	text-decoration: underline;
+	padding: 5px;
+}
+
+a.thread-tag-title-link {
+	color: #FFF;
+}
+
+a.thread-tag-title-link:FOCUS,
+a.thread-tag-title-link:ACTIVE, 
+a.thread-tag-title-link:HOVER {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+
+span.thread-title,
+a.thread-title {
+	color: rgb(241, 43, 43);
+	font-size: 16px;
+	text-decoration: none;
+}
+
+a.thread-title:ACTIVE
+a.thread-title:FOCUS
+a.thread-title:HOVER {
+	text-decoration: underline;
+}
+
+/***** user panel ******/
+a.username-link {
+	color: #00a9e0;
+	text-decoration: none;
+}
+
+a.username-link:ACTIVE,
+a.username-link:HOVER,
+a.username-link:FOCUS {
+	color: #00a9e0;
+	text-decoration: underline;
+}
+
+.user-panel-grid {
+	text-align: center;
+}
+
+/******************  TUTORIAL ******************/
+<<<<<<< .mine
+.tutorial-tag-title-link  {
+	background: rgb(98, 172, 63);
+	text-decoration: none;
+	padding: 5px;
+}
+
+.tutorial-tag-title-link:ACTIVE,
+.tutorial-tag-title-link:FOCUS,
+.tutorial-tag-title-link:HOVER  {
+	background: rgb(78, 143, 34);
+	text-decoration: underline;
+	padding: 5px;
+}
+
+a.tutorial-tag-title-link {
+	color: #FFF;
+}
+
+a.tutorial-tag-title-link:FOCUS,
+a.tutorial-tag-title-link:ACTIVE, 
+a.tutorial-tag-title-link:HOVER {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+span.tutorial-title,
+a.tutorial-title {
+	color: rgb(19, 112, 11);
+	font-size: 16px;
+	text-decoration: none;	
+}
+
+a.tutorial-title:ACTIVE,
+a.tutorial-title:FOCUS,
+a.tutorial-title:HOVER {
+	text-decoration: underline;
+}
+
+/********************* TAG *****************************/
+.tag-name {
+	text-decoration: none;
+	font-size: 100%;
+	color: orange;
+	font-weight: bolder;
+}
+
+/********************** MODULES ************************/
+.module {
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.module-386-280 {
+	width: 386px;
+	height: 280px;
+	background-color: orange;
+}
+
+.module-filter {
+	width: 386px;
+	height: 280px;
+	background-color: blue;
+}
+
+.module-filter-title {
+	width: 100%;
+	background-color: #FFF;
+	padding: 5px;
+}
+
+.module-title {
+	width: 100%;
+	font-weight: bold;
+	font-size: 1.6em;
+}

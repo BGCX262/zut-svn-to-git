@@ -1,0 +1,25 @@
+## Email settings
+## Default settings for gmail account
+
+email.host=smtp.gmail.com
+email.username=yourUsername
+email.password=yourPassowrd
+email.port=587
+email.protocol=smtp
+
+## Epitech
+#email.host=pod51002.outlook.com
+#email.username=someone@epitech.eu
+#email.password=passUnix
+#email.port=587
+#email.protocol=smtp
+
+## javaMailProperties
+email.smtps.auth=true
+email.smtp.starttls.enable=true
+
+## Email templates
+## Syntax: key=mailPackage/file.vm
+tpl_verification=mails/verification.vm
+tpl_contactus=mails/contactus.vm
+tpl_password_recovery=mails/passwordRecovery.vm

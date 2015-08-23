@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Account" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="Account View" styleClass="main-title" />
+	</ui:define>
+	<ui:define name="body">
+	    <h:form>
+	    	<p:outputPanel id="outp00" layout="block" style="width: 100%; overflow: hidden;">
+
+	    		<p:outputPanel id="outp01" layout="block" style="width: 75%; overflow: hidden; float: left;">
+			    	<p:tabView id="tabViewAccount" dynamic="true" orientation="left" cache="false" style="border:none; background-color:none;">
+			    		<p:tab id="tabPrimary" title="Primary">
+				    		<h:panelGrid columns="1" id="mainAcccountPG">
+						    	<h:panelGrid columns="2">
+							    	<h:outputLabel value="#{message['account.username']}" for="username" />
+							        <x:inputText id="username" forceId="true" value="#{accountBean.username}" redisplay="true" size="40" maxlength="80" displayValueOnly="#{!accountBean.displayValueOnly}" />
+					
+							        <h:outputLabel value="#{message['account.email']}" for="email" />
+							        <x:outputText id="email" forceId="true" value="#{accountBean.email}" size="40" maxlength="80"/>
+							            
+							        <h:outputLabel value="#{message['account.password']}" for="password" rendered="#{accountBean.editRole}"/>
+							        <h:commandLink id="password" value="Changes" action="#{passwordRecoveryBean.edit}" rendered="#{accountBean.editRole}"/>
+					
+									<h:outputLabel value="Disabled" for="disabled" rendered="true" />
+							        <x:inputText id="disabled" forceId="true" value="#{accountBean.account.disabled}" size="40" maxlength="80" displayValueOnly="true" />
+							        
+							        <h:outputLabel value="Locked" for="locked" rendered="true"/>
+							        <x:inputText id="locked" forceId="true" value="#{accountBean.account.locked}" size="40" maxlength="5" displayValueOnly="true"/>
+							        
+							        <h:outputLabel value="Tags" for="tags" rendered="true"/>
+							        <x:inputText id="tags" forceId="true" value="#{tagBean.countByAccount(accountBean.accountId)}" size="40" maxlength="80" displayValueOnly="true"/>
+							        
+							    </h:panelGrid>
+							</h:panelGrid>
+							
+							<h:commandButton id="editionmode" type="submit" action="#{accountBean.goToEdition}" value="#{message['common.update']}" rendered="#{accountBean.editRole and !accountBean.displayValueOnly}" styleClass="def-but"/>
+					        <h:commandButton id="update" type="submit" action="#{accountBean.update}" value="#{message['account.saveModification']}" rendered="#{accountBean.displayValueOnly}" styleClass="def-but"/>
+					        <h:commandLink id= "homeLink" type="button" action="#{accountBean.goToView}" value="#{message['common.cancel']}" rendered="#{accountBean.displayValueOnly}" styleClass="def-but"/>
+						</p:tab>
+						<p:tab id="tabProfiles" title="#{message['account.profile']}" rendered="#{accountBean.editRole}">
+							<h:panelGrid columns="2">
+							   	<h:outputLabel value="#{message['account.website']}" for="webSite" />
+							    <x:inputText id="webSite" forceId="true" value="#{profileBean.profile.webSite}" redisplay="true" size="40" maxlength="80" displayValueOnly="#{!accountBean.displayValueOnly}" />
+					
+							     <h:outputLabel value="#{message['account.company']}" for="company" />
+							     <x:outputText id="company" forceId="true" value="#{profileBean.profile.company}" size="40" maxlength="80"/>
+		
+							     <h:outputLabel value="#{message['account.job']}" for="job" />
+							     <x:outputText id="job" forceId="true" value="#{profileBean.profile.job}" size="40" maxlength="80"/>
+		
+							     <h:outputLabel value="#{message['account.phoneNumber']}" for="phoneNumber" />
+							     <x:outputText id="phoneNumber" forceId="true" value="#{profileBean.profile.phoneNumber}" size="40" maxlength="80"/>
+		
+							     <h:outputLabel value="#{message['account.birthDay']}" for="birthDay" />
+							     <x:outputText id="birthDay" forceId="true" value="#{profileBean.profile.birthDay}" size="40" maxlength="80"/>
+							     
+							     <h:outputLabel value="Interest areas" for="InterestAreas" />
+							     <x:outputText id="InterestAreas" forceId="true" value="#List here all tags" size="40" maxlength="80"/>
+							 </h:panelGrid>
+						</p:tab>
+						
+						<p:tab id="tabSettings" title="#{message['settings']}" rendered="#{accountBean.editRole}">
+							<h:form>
+						        <h:panelGrid id="settingspg1" columns="2">
+						        	<h:outputText id="settingsotp1" value="Post notification:" />  
+					       			<p:selectBooleanCheckbox id="notifierPost" value="#{accountSettingsBean.settings.notifierPost}" />
+					       			
+					       			<h:outputText id="settingsotp2" value="Comment notification:" />  
+					       			<p:selectBooleanCheckbox id="notifierComment" value="#{accountSettingsBean.settings.notifierComment}" />
+						        </h:panelGrid>
+						        <p:commandButton type="submit" action="#{accountSettingsBean.save}" value="Save"/>
+					        </h:form>
+						</p:tab>
+						
+				    </p:tabView>
+				</p:outputPanel>
+				
+				<p:outputPanel id="outp002Rigth" layout="block" style="background: none;width: auto; float:right; margin: 5%;">
+				   	<h:link id="avatarLink" outcome="/jsp/user/avatar?faces-redirect=true" disabled="#{!accountBean.editRole}" >
+			    		<p:graphicImage id="avatar" value="#{imageBean.load128(accountBean.accountId)}" style="border: 1px solid #FFF;"/>
+			    	</h:link>
+				</p:outputPanel>
+	    	</p:outputPanel>
+		    
+	        <br /><br />
+	        <p:tabView id="tabView" dynamic="true" cache="true"> 
+	        	<p:tab id="activityTab" title="#{message['account.activities']}"> 
+				    <p:dataTable id="activityTable" value="#{activityBean.getActivitiesByAccount(accountBean.accountId)}"
+				    	var="activity" scrollRows="10" scrollHeight="150" rows="10">
+						<p:column headerText="Date" sortBy="#{activity.createdAt}">
+							<h:outputText id="createdAt" value="#{activity.createdAt}"/>
+						</p:column>
+						<p:column headerText="Action">
+							<h:outputText id="command" value="#{activity.command}"/>
+						</p:column>
+					</p:dataTable>
+	        	</p:tab>
+	        	<p:tab id="answersTab" title="#{message['account.answers']} (#{postBean.countByAccount(accountBean.accountId)})">
+	        		<p:dataGrid id="answersAccount" value="#{postBean.getAllByAccountId(accountBean.accountId)}" var="post"
+	        			paginator="true" rows="5" paginatorPosition="bottom" columns="1">
+	        			<h:panelGrid id="pgans" columns="2">
+	        				<h:outputText id="datePost" value="#{post.createdAt}"/>
+		        			<p:commandLink id="item" value="#{post.thread.title}" action="#{threadBean.view(post.thread.id)}"/>
+	        			</h:panelGrid>
+	        		</p:dataGrid> 
+	        	</p:tab>
+	        	<p:tab id="questionTab" title="#{message['account.threads']} (#{threadBean.countByAccount(accountBean.accountId)})">
+	        		<p:dataGrid id="threadsTable" value="#{threadBean.getThreadsByAccount(accountBean.accountId)}" var="thread" columns="1">
+	        			<h:panelGrid id="sds1" columns="2">
+							<h:outputText id="threadCreatedAt" value="#{thread.createdAt}"/>
+							<h:commandLink id="threadTitle" value="#{thread.title}" action="#{threadBean.view(thread.id)}"/>
+	        			</h:panelGrid>
+					</p:dataGrid>
+	        	</p:tab>
+	        </p:tabView>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
+</html>

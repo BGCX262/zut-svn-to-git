@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:x="http://myfaces.apache.org/tomahawk"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="jsp/common/template.xhtml">
+	<ui:param name="param" value="Welcome Page" />
+	<ui:param name="css" value="includes/css/layout.css" />
+	<ui:define name="body">
+		<h:form>
+			<h:outputText value="sessionScope #{sessionScope}" rendered="false" />
+			
+			<p:panel styleClass="welcome-layout-container" >
+				<p:panel id="welcome-layout-left" styleClass="welcome-layout-left">  
+					<p:dataTable id="threadsTable" rowStyleClass="welcome-datatable-row" styleClass="welcome-datatable" value="#{threadListBean.allThreads}" var="thread" rows="5">
+						<p:column headerText="Last threads">
+							<h:outputText id="created" value="#{thread.createdAt}" />
+							<h:outputText id="sep" value=" - " />
+							<h:commandLink id="title" value="#{thread.title}" action="#{threadBean.view(thread.id)}" styleClass="thread-title" />
+						</p:column>
+					</p:dataTable>
+					<x:htmlTag value="br"/>
+					<x:htmlTag value="br"/>
+					<p:dataTable id="tutorials" rowStyleClass="welcome-datatable-row" styleClass="welcome-datatable" value="#{tutorialListBean.tutorials}" var="tutorial" rows="5">
+						<p:column headerText="Last tutorials">
+							<h:outputText id="created1" value="#{tutorial.createdAt}" />
+							<h:outputText id="sep1" value=" - " />
+							<h:commandLink id="title2" value="#{tutorial.title}" action="#{tutorialBean.view(tutorial.id)}" styleClass="tutorial-title"/>
+						</p:column>
+					</p:dataTable>
+			    </p:panel>
+			    
+			    <p:panel id="welcome-layout-right" styleClass="welcome-layout-right">  
+			        <p:panel header="Next events" styleClass="module">
+			        	module 1
+			        </p:panel>
+			        <p:panel styleClass="module module-ad">
+			        	module 2 pub
+			        </p:panel >
+			        <p:panel styleClass="module module-ad">
+			        	module 3 pub
+			        </p:panel>
+			        <p:panel header="Linked" styleClass="module">
+			        	module 4
+			        </p:panel>
+			        <p:panel header="Stats" styleClass="module">
+			        	module 5
+			        </p:panel>
+				</p:panel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

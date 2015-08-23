@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Tutorials :: New" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="New" />
+	</ui:define>
+	<ui:define name="body">		
+		<h:form>
+			<h:panelGrid id="main" columns="2" style="margin-bottom:10px">  
+            	<h:outputLabel for="name" value="Title:" />  
+            	<p:inputText id="name" value="#{tutorialBean.tutorial.title}" style="width:600px;" required="true"/>
+            	  
+            	<h:outputLabel for="desc" value="Description:" /> 
+            	<p:inputTextarea id="desc" rows="3" cols="100" value="#{tutorialBean.tutorial.description}" minQueryLength="4" required="true" autoResize="true"/> 
+ 
+            	<h:outputLabel for="editor" value="Content" /> 
+           		<p:editor id="editor" value="#{tutorialBean.tutorial.content}" width="800" required="true" />
+           		
+            	<h:outputLabel for="tagName" value="Tags" /> 
+            	<p:autoComplete id="tagName" completeMethod="#{tutorialBean.onCompleteTag}" 
+	                        multiple="true" forceSelection="true">
+	                 	<p:ajax id="onSelectListener" event="itemSelect" listener="#{tutorialBean.onSelectTag}" ></p:ajax>       
+	            </p:autoComplete>
+	            
+            	<h:outputLabel for="actived" value="Status" /> 
+           		<p:selectBooleanButton id="actived" value="#{tutorialBean.actived}" onLabel="Activated" offLabel="Desactivated" />  
+        	</h:panelGrid>
+        	<p:separator id="separator1"/>
+        	<h:panelGrid id="actions" columns="2">
+	        	<h:commandButton id="createButton" value="Submit" action="#{tutorialBean.createNew()}" rendered="#{!tutorialBean.displayOnly}"/>  
+	        	<h:commandButton id="cancelNew" value="Cancel" type="button" action="/jsp/tutorial/list?faces-redirect=true"/>  
+        	</h:panelGrid>
+		</h:form>
+    </ui:define>
+</ui:composition>
+</html>

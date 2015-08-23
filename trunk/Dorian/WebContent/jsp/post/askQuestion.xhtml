@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Post welcome" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="Ask your question" styleClass="main-title"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="3" style="margin-top:10px">
+				<h:outputLabel for="title" value="Title : " />
+				<p:inputText id="title" value="#{threadBean.title}"	required="true" requiredMessage="title required">
+					<f:validateLength minimum="1" maximum="1024" for="title" />
+					<p:ajax event="blur" update="titleMsg" />
+				</p:inputText>
+				<p:message id="titleMsg" for="title" display="text" />
+			</h:panelGrid>
+			
+			<p:editor id="editor" value="#{threadBean.content}" width="600" required="true" requiredMessage="Content is required"/>
+				<f:ajax event="keyup" render="preview" />  
+			<p:separator/>
+    		
+    		
+    		<h:outputText id="preview" value="#{threadBean.content}" escape="false"/>
+    		
+    		<h:panelGrid columns="2" style="margin-top:10px">  
+	   			<p:commandButton id="submitButton" value="Submit" action="#{threadBean.createThread()}" />  
+    		</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

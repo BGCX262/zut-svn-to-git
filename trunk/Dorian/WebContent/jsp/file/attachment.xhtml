@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Test attachment" />
+
+	<ui:define name="body">
+		<h:outputText value="Attachment managment" />
+		<h:form id="attachments" enctype="multipart/form-data">
+		<br/>
+			<p:fieldset id="attachs" legend="Attachments">
+				<p:fileUpload id="fileUploader" value="#{attachmentBean.file}"
+            		mode="simple"  
+            		multiple="false"  
+            		sizeLimit="10000000"/>
+            	<h:panelGrid id="descGrid" columns="2">
+            		<p:outputLabel id="labelDescr" for="description" value="Description"/>
+            		<p:inputTextarea id="description" value="#{attachmentBean.description}" cols="50" rows="2"/>
+            		
+            		<p:outputLabel id="labelVisible" for="visible" value="Visible"/>
+            		<p:selectBooleanButton id="visible" value="#{attachmentBean.visible}" onLabel="Yes" offLabel="No" />  
+            		
+            		<p:outputLabel id="labelDownload" for="download" value="Download"/>
+            		<p:selectBooleanButton id="download" value="#{attachmentBean.downloadable}" onLabel="Yes" offLabel="No" />  
+            	</h:panelGrid>
+            	<p:commandButton value="Submit" ajax="false" actionListener="#{attachmentBean.upload}"/>  
+			</p:fieldset>
+			<p:separator id="sep1"/>
+			<p:fieldset id="postAtt" legend="Post attachments">
+				<p:dataList id="datalist" value="#{attachmentBean.getAttachments(1)}" var="attachment">
+					<p:panel header="#{attachment.fileName}">
+						<p:commandButton id="name" value="#{attachment.fileName}" disabled="#{!attachment.downloadable}" rendered="#{attachment.visible}" ajax="false" icon="ui-icon-arrowthickstop-1-s">
+							<p:fileDownload value="#{attachmentBean.download(attachment.id)}" /> 
+						</p:commandButton>
+						<br/>
+						<h:outputText id="descr" value="#{attachment.description}"/>
+					</p:panel>
+				</p:dataList>
+			</p:fieldset>
+		</h:form>
+    </ui:define>
+</ui:composition>
+</html>        

@@ -1,0 +1,47 @@
+package fr.dorian.web.impl;
+
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
+import fr.dorian.web.IKeyRepository;
+
+@Repository("keyRepository")
+@Scope("singleton")
+public class KeyRepository implements IKeyRepository, Serializable {
+	private static final long serialVersionUID = -7607081634097701832L;
+	
+	private ResourceBundle resourceBundle;
+
+	public KeyRepository() {
+		init();
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Init local config
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void init() {	
+		createResourceBundle();
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Resource
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void createResourceBundle() {
+		System.out.println("KeyRepositoryAnnotated: createResourceBundle: enter !");
+
+		resourceBundle = ResourceBundle.getBundle(baseName, Locale.FRENCH, Thread.currentThread().getContextClassLoader());
+	}
+
+	//
+	// ACCESSORS
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public ResourceBundle getResourceBundle() {return resourceBundle;}
+	public void setResourceBundle(ResourceBundle resourceBundle) {this.resourceBundle = resourceBundle;}
+}

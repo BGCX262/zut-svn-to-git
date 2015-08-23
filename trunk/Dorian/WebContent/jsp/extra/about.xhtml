@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="About" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+	<ui:define name="title">
+		<h:outputText value="About" />
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:outputText id="view" value="About"/>
+		</h:form>
+    </ui:define>
+</ui:composition>
+</html>        

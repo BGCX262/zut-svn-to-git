@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+	<ui:param name="param" value="Tags : Edit" />
+	<ui:param name="css" value="../../includes/css/layout.css" />
+	
+	<ui:define name="body">
+		<h:form id="form">
+			<p:commandButton id="new" value="Create new tag" action="/jsp/tag/new?faces-redirect=true" />			
+			<p:separator id="separator"/>
+			<h:panelGrid id="pg1" columns="2" rowClasses="no-panelgrig-background-color">
+				<p:panel id="p1" style="border: none;">
+					<p:graphicImage id="tagavaratar" value="/includes/images/tag_64.png" alt="tag"/>
+				</p:panel>
+				<h:panelGrid columns="2" cellpadding="5" cellspacing="10" style="border: none;" rowClasses="no-panelgrig-border">  
+	            	<h:outputLabel for="name" value="Name" />  
+	            	<x:inputText id="name" forceId="true" value="#{tagBean.name}" maxlength="45" displayValueOnly="#{!tagBean.displayValueOnly}"/>  
+
+	            	<h:outputLabel for="desc" value="Description" />  
+	            	<x:inputText id="desc" forceId="true" value="#{tagBean.description}" displayValueOnly="#{!tagBean.displayValueOnly}"/>  
+
+	            	<h:outputLabel for="threads" value="Threads" />  
+	            	<h:outputText id="threads" forceId="true" value="#{tagBean.tag.threadsCounter}" displayValueOnly="true"/>  
+
+	            	<h:outputLabel for="tutorials" value="Tutorials" />  
+	            	<h:outputText id="tutorials" forceId="true" value="#{tagBean.tag.tutorialsCounter}" displayValueOnly="true"/>  
+
+	            	<h:outputLabel for="accounts" value="Accounts" />  
+	            	<h:outputText id="accounts" forceId="true" value="#{tagBean.tag.accountsCounter}" displayValueOnly="true"/>  
+	        	</h:panelGrid>
+			</h:panelGrid>
+        	<h:commandButton id="edit" value="Edit" action="#{tagBean.goToEdition}" rendered="#{tagBean.editRole and !tagBean.displayValueOnly}" styleClass="btn"/>
+        	<h:commandButton id="update" type="submit" action="#{tagBean.update}" value="Save modification" rendered="#{tagBean.displayValueOnly}"/>
+        	<h:commandButton id="cancel" type="submit" action="#{tagBean.goToView}" value="Cancel" rendered="#{tagBean.displayValueOnly}"/>
+	    </h:form>
+	</ui:define>
+</ui:composition>
+</html>

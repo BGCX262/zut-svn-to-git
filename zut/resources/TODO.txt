@@ -1,0 +1,125 @@
+http://www.onlinetechvision.com/?p=566
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+</ui:composition>
+	<ui:param name="param" value="Welcome Page" />
+	
+	<ui:define name="title">
+		<h:outputText value="Title : Welcome"/>
+	</ui:define>
+	
+	<ui:define name="body">
+		<h:form>
+		<table>
+			<tr>
+				<td>
+					<h:outputLabel for="id" value="Id : "/>
+				</td>
+				<td>
+					<p:inputText id="id" value="#{userMB.id}">
+						<f:converter converterId="javax.faces.Integer" />
+						<p:ajax event="blur" update="idMsg" />
+					</p:inputText>
+					<p:message id="idMsg" for="id" display="icon" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputLabel for="name" value="Name : " />
+				</td>
+				<td>
+					<p:inputText id="name" value="#{userMB.name}">
+						<f:validateLength minimum="5" />
+						<p:ajax event="blur" update="nameMsg" />
+					</p:inputText>
+					<p:message id="nameMsg" for="name" display="icon" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputLabel for="surname" value="Surname : " />
+				</td>
+				<td>
+					<p:inputText id="surname" value="#{userMB.surname}">
+						<f:validateLength minimum="5" />
+						<p:ajax event="blur" update="surnameMsg" />
+					</p:inputText>
+					<p:message id="surnameMsg" for="surname" display="icon" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p:commandButton id="addUser" value="Add" action="#{userMB.addUser}" ajax="false" />
+				</td>
+				<td>
+					<p:commandButton id="reset" value="Reset" action="#{userMB.reset}" ajax="false" />
+				</td>
+			</tr>
+		</table>
+	</h:form>
+	</ui:define>
+</html>
+
+/*******************************************************************************************************/
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Welcome success page</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputText value="USERs : "></h:outputText>
+		<p:dataTable id="users" value='#{userMB.userList}' var='item' 
+			style="width: 50%" selection="#{userMB.selectedUser}" rowKey="#{item.id}" selectionMode="single">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value='#{item.id}' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value='#{item.name}' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Surname" />
+				</f:facet>
+				<h:outputText value='#{item.surname}' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Created date" />
+				</f:facet>
+				<h:outputText value='#{item.createdAt}' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Role" />
+				</f:facet>
+				<h:outputText value='#{item.roleName}' />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Is Deleted" />
+				</f:facet>
+				<h:outputText value='#{item.deleted}' />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+
+</html>

@@ -1,0 +1,8 @@
+<html>
+<body>
+	<p>Bonjour ${username}.</p>
+	<p>Votre lien d'activation ${link}</p>
+	<p>Code à utiliser: ${code}.</p>
+	<p>Cordialement</p>
+</body>
+</html>

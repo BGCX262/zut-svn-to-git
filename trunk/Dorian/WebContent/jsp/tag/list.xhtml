@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Tags" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="body">
+		<h:outputText id="Title" value="A tag is an index term assigned to a piece of information." styleClass="content-title"/>
+		<h:form id="form1">
+			<p:commandButton id="new" value="Create new tag" action="/jsp/tag/new?faces-redirect=true" style="margin-left:2%"/>			
+		</h:form>  
+		<p:separator id="separator"/>
+		<h:form id="tagsForm" prependId="false">
+			<h:panelGrid columns="2" style="margin-bottom:10px; margin-left:2%;">
+				<p:outputLabel for="tagNameSearch" value="Search Tag"/>
+				<p:inputText id="tagNameSearch" value="#{tagListBean.searchTag}" styleClass="def-input">
+					<p:ajax event="keyup" update="tags" listener="#{tagListBean.onCompleteTag}"></p:ajax>
+				</p:inputText>
+             </h:panelGrid>
+			<p:dataGrid id="tags" value='#{tagListBean.tags}' var="tag" emptyMessage="No tags" columns="2" 
+				paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="false" widgetVar="tagsGrid" rows="6" 
+				styleClass="no-datagrid-border-and-bgcolor">
+				<p:panel id="p0main" style="border:none;">
+					<p:panelGrid id="pg" columns="2" style="border:none;">
+						<h:panelGrid id="pgpg0" columns="1" style="border:none;">
+							<p:graphicImage id="tagavaratar" value="/includes/images/tag_64.png" alt="tag" style="border:none;"/>
+							<h:commandButton id="delete" value="Delete" action="#{tagBean.remove(tag.id)}" rendered="#{tagBean.editRole}" styleClass="btn btn-delete"/>
+						</h:panelGrid>
+						
+						<p:panel id="panel0" style="border:none;">
+							<p:commandLink id="tagName" value="#{tag.name}" action="#{tagBean.view(tag.id)}" styleClass="tag-name"/>
+							<br/>
+							<h:outputText id="tagDescription" value="#{tag.description}" rendered="#{tag.description != null}"/>
+							
+							<p:panelGrid columns="2">						
+								<h:outputLabel for="tagThread" value="Threads" />
+								<h:outputText id="tagThread" value="#{tag.threadsCounter}"/>
+
+								<h:outputLabel for="tagTutorial" value="Tutorials" />
+								<h:outputText id="tagTutorial" value="#{tag.tutorialsCounter}"/>
+								
+								<h:outputLabel for="tagAccount" value="Accounts" />
+								<h:outputText id="tagAccount" value="#{tag.accountsCounter}"/>
+							</p:panelGrid>
+						</p:panel>
+					</p:panelGrid>
+				</p:panel>
+			</p:dataGrid>
+		</h:form>
+    </ui:define>
+</ui:composition>
+</html>        

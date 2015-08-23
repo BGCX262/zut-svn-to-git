@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Users" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="Accounts" styleClass="main-title"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<p:tabView id="tabView" dynamic="true" orientation="left"> 
+				<p:tab id="reputation" title="By reputation">
+					<p:dataGrid id="usersGrid" var="account" value="#{accountListBean.all}" columns="2" 
+						paginatorAlwaysVisible="true" rows="10" paginatorPosition="bottom" paginator="true" 
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" >
+						<p:panel header="#{account.user.username}" style="text-align:center">
+							<p:panelGrid columns="2">
+								<p:commandLink id="createdBy" action="#{accountBean.view(account.id)}">
+									<p:graphicImage id="avatar" value="#{imageBean.load64(account.id)}" alt="#{account.username}"/>
+								</p:commandLink>
+								
+								<p:panelGrid id="p0" columns="2">
+									<h:outputLabel for="reputation" value="Reputations"/>
+									<h:outputText id="reputation" value="#{account.accountInfos.reputation}k"/>
+									
+									<h:outputLabel for="posts" value="Posts"/> 
+									<h:outputText id="posts" value="#{postBean.countByAccount(account.id)}"/> 
+									
+									<h:outputLabel for="threads" value="Threads"/> 
+									<h:outputText id="threads" value="#{threadBean.countByAccount(account.id)}"/>
+									
+									<h:outputLabel for="tagsCount" value="Tags"/> 
+									<h:outputText id="tagsCount" value="#{tagBean.countByAccount(account.id)}"/>
+									
+									<h:outputLabel for="tutorials" value="Tutorials"/> 
+									<h:outputText id="tutorials" value="#{tutorialBean.countByAccount(account.id)}"/>
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:panel>
+					</p:dataGrid> 
+				</p:tab>
+				<p:tab id="newUsers" title="All">
+					<p:dataGrid id="newUsersGrid" var="account" value="#{accountListBean.all}" columns="2">
+						<p:panel header="#{account.user.username}" style="text-align:center">
+							<h:panelGrid columns="2">
+								<p:commandLink id="createdBy" action="#{accountBean.view(account.id)}">
+									<p:graphicImage id="avatar" value="#{imageBean.load64(account.id)}" alt="#{account.username}"/>
+								</p:commandLink>
+								<h:panelGrid id="p0" columns="2">
+									<h:outputLabel for="disabled" value="Disabled"/>
+									<h:outputText id="disabled" value="#{account.disabled}"/>
+									
+									<h:outputLabel for="roles" value="Roles"/>
+									<h:panelGrid id="roles" columns="1">
+										<p:dataList id="pg1" value="#{roleBean.getForAccount(account.id)}" var="role" >
+											<h:outputText id="roleTitle" value="#{role.description}"/>
+										</p:dataList>
+									</h:panelGrid> 
+									
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:panel>
+					</p:dataGrid> 
+				</p:tab>
+				<p:tab id="friends" title="Friends">
+					<h:outputText id="sds" value="Select all mutual users: tutorial owners"/>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+    </ui:define>
+</ui:composition>
+</html>        
+
+<!-- 									<p:tooltip for="createdBy" value="#{account.username}" showEffect="fade" hideEffect="fade" />  -->

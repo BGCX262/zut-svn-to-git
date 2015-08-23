@@ -1,0 +1,20 @@
+## Database driver (applicationContext-data.xml and applicationContext-jpa.xml)
+jdbc.driverClassName=com.mysql.jdbc.Driver
+## Database url
+jdbc.url=jdbc:mysql://localhost:3306/apptest
+## Database username
+jdbc.username=root
+## Database password
+jdbc.password=root
+
+## HIBERNATE (applicationContext-data.xml)
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+hibernate.show_sql=true
+
+############################################
+## JPA (applicationContext-jpa.xml)
+###########################################"
+jpa.show_sql=true
+# MYSQL or HSQL
+jpa.database=MYSQL
+jpa.generateDdl=false

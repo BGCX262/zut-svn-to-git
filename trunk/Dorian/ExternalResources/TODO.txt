@@ -1,0 +1,27 @@
+## Configuration de Tomcat7
+1. Remplacer le contenu des fichiers (server.xml et context.xml) par celui des fichiers respectifs
+ci-joints dans le répertoire "ExternalResources/tomcat". Les fichiers sont: server.xml et context.xml
+2. Copier les librairies suivantes dans le dossier d'installation de Tomcat7
+	- bz53367-jdbc-pool.jar (Au cas où "org.apache.tomcat.jdbc.pool.DataSourceFactory" ne serait pas disponible)
+	- mysql-connector-java-5.1.20-bin.jar (Au cas où "com.mysql.jdbc.Driver" ne serait pas disponible.
+											Nb: ce driver ne peut être utilisé que pour se connecter à une base de
+											données mysql.)
+											
+## Base de donnees mysql
+1. Modifier le fichier persistence.xml.
+	Remplacer vos identifiants afin de vous connecter à la base de données.
+
+1. Le fichier products.sql contient une base de données de l'application avec les données élémentaires (Importer ou Faire
+un copier/coller). Copier de la ligne a partir de la ligne 228 pour voir les nouveaux ajouts.
+
+2. Renomer le fichier "Java Resources:resources/jdbc.properties.sample" en "Java Resources:resources/jdbc.properties".
+
+3. L'éditer en remplacant les champs par les votres afin de vous connecter à la base de données. 
+ 
+## Email Settings {09/02/2013}
+Les parametres par defaut sont ceux du service mail de Google, gmail.
+1. Renomer le fichier {Java Resourses}/resources/mails.properties.sample en {Java Resourses}/resources/mails.properties. {Sans le ".sample"}
+2. Editer le fichier {Java Resourses}/resources/mails.properties. Le modifier de sortes a faire fonctioner l'application.
+!!!!!!!!!!!!! Seuls le mot de passe {email.password} et le {username email.username} sont requis par defaut.
+3. Pour tout ajout de nouveaux fichiers template (.vm), merci de les mettre dans le package {Java Resourses}/resources/mails.  
+ 

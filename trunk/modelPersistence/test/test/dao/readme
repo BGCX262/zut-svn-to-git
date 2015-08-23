@@ -1,0 +1,2 @@
+All classDAOTest operate as a manager. For example:
+PostDAOTest defines how the PostManager or PostBO could e implemented. 

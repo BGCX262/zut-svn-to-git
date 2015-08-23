@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:body>
+		<p:outputPanel id="super-footer-container" layout="block" styleClass="super-footer-container">
+			<p:outputPanel id="super-footer-main-container" layout="block" styleClass="super-footer-main-container">
+				<h:form>
+					<h:panelGrid columns="3" styleClass="footer-panelgrid">
+						<h:panelGrid columns="1">
+							<h:outputText id="about" value="About"/>
+								<p:commandLink id="contact" value="Contact us" action="/jsp/extra/contact?faces-redirect=true" />
+								<p:commandLink id="feedback" value="Feedback" action="/jsp/extra/about?faces-redirect=true"/>
+								<p:commandLink id="press" value="Press" action="/jsp/extra/about?faces-redirect=true"/>
+							</h:panelGrid>
+						<h:panelGrid columns="1">
+							<h:outputText id="Legal" value="Legal"/>
+							<p:commandLink id="tos" value="Terms of Use" action="/jsp/extra/legal?faces-redirect=true"/>
+						</h:panelGrid>
+						<h:panelGrid columns="1">
+							<h:outputText id="community" value="Community"/>
+							<p:commandLink id="epitech" value="EPITECH" action="#"/>
+							<p:commandLink id="facebook" value="Facebook" action="#"/>
+							<p:commandLink id="twitter" value="Twitter" action="#"/>
+							<p:commandLink id="help" value="Help &amp; Support" action="#"/>
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:outputText id="copy" styleClass="footer-reserved-rights" value="Copyright © 2013 Dorian.com, all rights reserved."/>
+				</h:form>
+			</p:outputPanel>
+		</p:outputPanel>
+	</h:body>
+</html>

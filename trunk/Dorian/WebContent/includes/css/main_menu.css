@@ -1,0 +1,40 @@
+.super-header {
+	width: 100%;
+	border: 0;
+	overflow: hidden; 
+	background: none;
+}
+
+.super-main-menu {
+	width: 100%;
+}
+	
+.super-main-menu-first {
+	width: 100%;
+	overflow: hidden;
+	margin: 5px;
+}
+
+.super-main-menu-second {
+	width: 100%;
+	overflow: hidden;
+}
+
+.super-main-menu-left {
+	float: left;
+}
+
+.super-main-menu-right {
+	float: right;
+}
+
+.app-name {
+	
+}
+
+.mainMenu {border: 0;}
+.mainMenu li a:HOVER {background-color:orange;}
+.main-menu td {text-align:center; width:100%;border-radius:5px;}
+.main-menu td a {text-decoration: none;}
+.main-menu td {background-color: blue !important;}
+.main-menu td:hover {background-color: rgb(224, 131, 44) !important;}

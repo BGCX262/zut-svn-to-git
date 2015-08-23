@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="DORIAN">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>fr.dorian.model.superclasses.BaseEntity</class>
+		<class>fr.dorian.model.superclasses.EditableEntity</class>
+		<class>fr.dorian.model.superclasses.StoreableEntity</class>
+		<class>fr.dorian.model.Account</class>
+		<class>fr.dorian.model.Activity</class>
+		<class>fr.dorian.model.Attachment</class>
+		<class>fr.dorian.model.Post</class>
+		<class>fr.dorian.model.Role</class>
+		<class>fr.dorian.model.Tag</class>
+		<class>fr.dorian.model.Thread</class>
+		<class>fr.dorian.model.User</class>
+		<class>fr.dorian.model.AccountActivation</class>
+		<class>fr.dorian.model.AccountInfos</class>
+		<class>fr.dorian.model.Tutorial</class>
+		<class>fr.dorian.model.Comment</class>
+		<class>fr.dorian.model.Address</class>
+		<class>fr.dorian.model.Profile</class>
+		<class>fr.dorian.model.Document</class>
+		<class>fr.dorian.model.Mail</class>
+		<class>fr.dorian.model.AccountSettings</class>
+		<class>fr.dorian.model.PasswordRecovery</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>		
+		<properties>
+	        <property name="javax.persistence.jdbc.user" value="root" />
+	        <property name="javax.persistence.jdbc.password" value="" />
+	        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+	        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/models" />
+			<property name="eclipselink.logging.level" value="INFO" />
+		</properties>		
+	</persistence-unit>
+</persistence>

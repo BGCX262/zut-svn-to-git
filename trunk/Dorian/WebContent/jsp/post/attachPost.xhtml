@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+	<ui:param name="param" value="Add new post" />
+	<ui:param name="css" value="../../includes/css/layout.css" />
+	
+	<ui:define name="title">
+		<h1>Add a new response :</h1>
+	</ui:define>
+	
+	<ui:define name="body">
+		<h:form>
+			<p:outputPanel id="mainPanelPost">
+				<p:editor id="editor" value="#{postBean.content}" width="600" widgetVar="editor"/>
+				<p:separator id="sep1"/>
+				<!-- <h:outputText id="prev" escape="false" value="#{postBean.content}"  /> -->
+				
+    			<h:panelGrid columns="2" style="margin-top:10px">  
+        			<p:commandButton id="submitButton" value="Submit" action="#{postBean.createPost}" />
+        			<p:commandButton id="attachDialogButton" value="Attach file" onclick="attachDialog.show();" />  
+    			</h:panelGrid>
+			</p:outputPanel>
+		</h:form>
+		
+		<p:dialog id="modalDialog" header="Attach file" widgetVar="attachDialog" modal="true" resizable="false">  
+    		<h:form id="attachments" enctype="multipart/form-data">
+    			<p:fileUpload id="fileUploader" value="#{attachmentBean.file}"
+            		mode="simple"  
+            		multiple="false"  
+            		sizeLimit="10000000"/>
+            	<h:panelGrid id="descGrid" columns="2">
+            		<p:outputLabel id="labelDescr" for="description" value="Description"/>
+            		<p:inputTextarea id="description" value="#{attachmentBean.description}" cols="50" rows="2"/>
+            		
+            		<p:selectBooleanButton id="visible" value="#{attachmentBean.visible}" onLabel="Invisible" offLabel="Visible" />  
+            		<p:selectBooleanButton id="download" value="#{attachmentBean.downloadable}" onLabel="undownloadable" offLabel="Downloadable" />  
+            	</h:panelGrid>
+            	<p:separator id="actionSep"/>
+            	<p:commandButton id="attach" value="Attach" ajax="false" actionListener="#{attachmentBean.attachTemp}"/>  
+    		</h:form>
+		</p:dialog>  
+	</ui:define>
+</ui:composition>
+</html>

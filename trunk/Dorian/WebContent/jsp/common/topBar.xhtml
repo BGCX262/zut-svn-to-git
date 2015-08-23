@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:h="http://java.sun.com/jsf/html">
+	
+	<h:body>
+		<p:outputPanel id="super-top-bar" layout="block" styleClass="super-top-bar">
+			<p:outputPanel id="super-main-top-bar" layout="block" styleClass="super-main-top-bar">
+				<p:outputPanel id="super-top-bar-left" layout="block" styleClass="super-top-bar-left">
+				 	<p:outputPanel id="stp-search-engine" layout="block" styleClass="stp-search-engine">
+				 		<h:form>
+							<h:panelGrid id="mHFPanelGrid" columns="2">
+		    					<h:panelGrid id="searchBoxPanelGrid" columns="3">
+									<h:inputText id="searchBox" value="#{searchBean.value}" size="40" styleClass="ipt"/>
+									<p:watermark id="searchBoxWaterMark" for="searchBox" value="Search" />	
+				    				<h:commandButton id="submitButton" value="Submit" action="#{searchBean.redirectToSearchedThreads()}" styleClass="btn btn-send"/>
+		    					</h:panelGrid>
+							</h:panelGrid>
+	    				</h:form>
+					</p:outputPanel>
+				</p:outputPanel>
+				
+				<p:outputPanel id="super-top-bar-right" layout="block" styleClass="super-top-bar-right">
+				 	<p:outputPanel id="user-interaction-section" layout="block" styleClass="user-interaction-section">
+				 		<h:form>
+							<p:menuButton id="menuButtonGroup" styleClass="mainTopBar" value="#{loginBean.displayName}" >
+								<p:menuitem id="mi1" value="Login" action="/login?faces-redirect=true" icon="ui-icon-arrowrefresh-1-w" ajax="false" rendered="#{!loginBean.logged}"/>  
+					    		<p:menuitem id="mi4" value="Logout" url="/j_spring_security_logout" icon="ui-icon-power" ajax="false" rendered="#{loginBean.logged}" />
+					    		<p:separator id="sep1"/>
+					    		<sec:authorize access="isAuthenticated()">  
+			    	    			<p:menuitem id="miaccount" value="Account" action="#{accountBean.viewCurrent(sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.id)}" icon="ui-icon-document" />
+			        				<p:menuitem id="mi2" value="Recents activities" action="#{activityBean.goToListView()}" ajax="false" icon="ui-icon-clipboard"/>
+					    		<p:separator id="sep2"/>
+			        			</sec:authorize>  
+		        				<sec:authorize access="hasRole('ROLE_SUPERVISOR')">
+		        					<p:menuitem id="mi3" value="Admin" action="/jsp/admin/admin?faces-redirect=true" ajax="false" icon="ui-icon-locked"/>
+		        				</sec:authorize>
+			        			<p:menuitem id="mi5" value="Home" action="/welcome?faces-redirect=true" ajax="false" icon="ui-icon-extlink"/>
+							</p:menuButton>
+						</h:form>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:outputPanel>
+    </h:body>
+</html>

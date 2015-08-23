@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="jsp/common/template.xhtml">
+<ui:param name="param" value="Logout Page" />
+<ui:param name="css" value="includes/css/layout.css" />
+
+	<ui:define name="body">
+		<h:outputText value="Logout page" />
+		<h:form id="form">
+			<p:growl id="messages" value="You have successfully logged out." />
+              
+   			<h:panelGrid id="grid" columns="1" rendered="false">
+                <h:outputText id="output1" value="You have successfully logged out."/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>        

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="internalLib" systemlibrary="true">
+        <archive path="/modelPersistence/lib/antlr-2.7.7.jar"/>
+        <archive path="/modelPersistence/lib/commons-io-1.3.2.jar"/>
+        <archive path="/modelPersistence/lib/commons-lang-2.4.jar"/>
+        <archive path="/modelPersistence/lib/commons-logging-1.1.1.jar"/>
+        <archive path="/modelPersistence/lib/dom4j-1.6.1.jar"/>
+        <archive path="/modelPersistence/lib/hibernate-commons-annotations-4.0.1.Final.jar"/>
+        <archive path="/modelPersistence/lib/hibernate-core-4.1.7.Final.jar"/>
+        <archive path="/modelPersistence/lib/hibernate-ehcache-4.1.7.Final.jar"/>
+        <archive path="/modelPersistence/lib/hibernate-entitymanager-4.1.7.Final.jar"/>
+        <archive path="/modelPersistence/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+        <archive path="/modelPersistence/lib/javassist-3.15.0-GA.jar"/>
+        <archive path="/modelPersistence/lib/jboss-logging-3.1.0.GA.jar"/>
+        <archive path="/modelPersistence/lib/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+        <archive path="/modelPersistence/lib/junit.jar"/>
+        <archive path="/modelPersistence/lib/mysql-connector-java-5.1.20-bin.jar"/>
+    </library>
+</eclipse-userlibraries>

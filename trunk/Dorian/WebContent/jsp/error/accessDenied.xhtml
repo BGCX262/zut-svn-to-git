@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:x="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../common/template.xhtml">
+<ui:param name="param" value="Dorian: ACCESS DENIED" />
+<ui:param name="css" value="../../includes/css/layout.css" />
+
+	<ui:define name="title">
+		<h:outputText value="ACCESS DENIED!"/>
+	</ui:define>
+	<ui:define name="body">
+		<h:form id="form">
+			<p:growl id="messages" />
+			<h:outputText value="Acces to this page has been denied :
+			 Sorry, You don't have enough permissions." style="font-weight: bold" styleClass="GenericTable" />
+			<br/>&nbsp;<br/>
+
+			<h:panelGrid columns="2" id="actions">
+				<h:commandLink action="/login?faces-redirect=true" value="Login page" id="loginLink" rendered="true"/>
+				<h:commandLink action="/welcome?faces-redirect=true" value="Home page" id="welcomeLink" />
+			</h:panelGrid>
+	    </h:form>
+    </ui:define>
+</ui:composition>
+</html>

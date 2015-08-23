@@ -1,0 +1,10 @@
+## All application properties
+app.name=Dorian
+app.version=0.0.0.1
+## Uses DEV for Development, PROD for Production
+app.mode=DEV
+app.base.url=http://localhost:8080/Dorian/
+app.store.root.directory=A:\\DorianStore
+app.store.attachment.directory=attachment
+app.store.temp.directory=tmp
+app.store.users.directory=users

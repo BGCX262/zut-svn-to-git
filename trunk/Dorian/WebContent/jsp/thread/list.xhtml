@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="../common/template_2c.xhtml">
+<ui:param name="param" value="Threads" />
+<ui:param name="css" value="../../includes/css/layout_2c.css" />
+
+	<ui:define name="title">
+		<h:outputText value="Threads List" styleClass="main-title" />
+	</ui:define>
+	<ui:define name="body-left">		
+		<h:form>
+			<p:commandButton id="newQuestion" styleClass="title-button" value="Ask question" action="/jsp/post/askQuestion?faces-redirect=true" />
+			<br/>
+			<br/>
+			<p:dataGrid id="threadsPanel" value="#{threadListBean.allThreads}" var="thread" columns="1"
+				rows="20" paginator="true" paginatorPosition="bottom" styleClass="thread-datagrid" paginatorAlwaysVisible="false"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+				
+				<p:panel styleClass="thread-datagrid-panel" >
+					<h:panelGrid id="threadPanel" columns="2" cellspacing="10">
+						<h:panelGrid id="userPanel" columns="1" styleClass="user-panel-grid">
+							<p:commandLink id="createdByAvatar" action="#{accountBean.view(thread.createdBy.id)}">
+								<p:graphicImage id="avatar" value="#{imageBean.load64(thread.createdBy.id)}" alt="#{thread.createdBy.user.username}"/>
+							</p:commandLink>
+							<h:commandLink id="threadOwner" value="#{thread.createdBy.user.username}" action="#{accountBean.view(thread.createdBy.id)}" styleClass="username-link"/>
+						</h:panelGrid>
+						<h:panelGrid id="threadDetailsPanel" columns="1">
+							<h:commandLink id="title" value="#{thread.title}" action="#{threadBean.view(thread.id)}" styleClass="thread-title"/>
+							<p:dataGrid id="tagsDataGrid" value="#{tagBean.byThread(thread.id)}" var="tag" styleClass="tagsGrid"
+								 columns="5" rendered="#{not empty tagBean.byThread(thread.id)}" emptyMessage="No attached tags">
+								 <h:commandLink id="tagNameLink" value="#{tag.name}" action="#{tagBean.view(tag.id)}" styleClass="thread-tag-title-link"/>
+							</p:dataGrid>
+							
+							<h:panelGrid id="details" columns="2">
+								<h:outputFormat id="modifiedAt" value="#{message['thread.modifiedAt']}" >
+									<f:param value="#{thread.modifiedAt}" />
+								</h:outputFormat>
+								<h:outputText id="count" value="Posts: #{thread.postCounter}"/>
+								<h:outputFormat id="createdAt" value="#{message['thread.createdAt']}" >
+									<f:param value="#{thread.createdAt}" />
+								</h:outputFormat>
+								<p:selectBooleanButton id="status" value="#{thread.closed}" onLabel="Closed" onIcon="ui-icon-check" offIcon="ui-icon-close" offLabel="Open" disabled="true" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</h:panelGrid>
+				</p:panel>
+				
+			</p:dataGrid>
+		</h:form>
+    </ui:define>
+    <ui:define name="body-right">
+    	<p:outputPanel id="module-filter" layout="block" styleClass="module module-filter">
+    		<p:outputPanel id="module-filter-title" layout="block" styleClass="module-filter-title">
+    			<h:outputText value="Filter" styleClass="module-title"/>
+    		</p:outputPanel>
+    	</p:outputPanel>
+    	<p:outputPanel id="module-1" layout="block" styleClass="module module-386-280">
+    	</p:outputPanel>
+    	<p:outputPanel id="module-2" layout="block" styleClass="module module-386-280">
+    	</p:outputPanel>
+    	<p:outputPanel id="module-3" layout="block" styleClass="module module-386-280">
+    	</p:outputPanel>
+    </ui:define>
+</ui:composition>
+</html>
